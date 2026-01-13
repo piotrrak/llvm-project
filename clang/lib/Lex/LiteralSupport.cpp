@@ -917,7 +917,9 @@ NumericLiteralParser::NumericLiteralParser(StringRef TokSpelling,
   isFloat = false;
   isImaginary = false;
   isFloat16 = false;
-  isFloat128 = false;
+  isFloat32 = false;
+  isFloat64 = false;
+  isFloat128 = false; // TODO: f128
   MicrosoftInteger = 0;
   isFract = false;
   isAccum = false;
@@ -1019,12 +1021,34 @@ NumericLiteralParser::NumericLiteralParser(StringRef TokSpelling,
       // ToDo: more precise check for CUDA.
       // TODO: AMDGPU might also support it in the future.
       if ((Target.hasFloat16Type() || LangOpts.CUDA ||
+          LangOpts.ExtendedFP16Type ||
            (LangOpts.OpenMPIsTargetDevice && Target.getTriple().isNVPTX())) &&
           s + 2 < ThisTokEnd && s[1] == '1' && s[2] == '6') {
         s += 2; // success, eat up 2 characters.
         isFloat16 = true;
         continue;
       }
+
+      if (LangOpts.ExtendedFP32Type &&
+          s + 2 < ThisTokEnd && s[1] == '3' && s[2] == '2') {
+        s += 2; // success, eat up 2 characters.
+        isFloat32 = true;
+        continue;
+      }
+
+      if (LangOpts.ExtendedFP64Type &&
+          s + 2 < ThisTokEnd && s[1] == '6' && s[2] == '4') {
+        s += 2; // success, eat up 2 characters.
+        isFloat64 = true;
+        continue;
+      }
+// FIXME: _Float128/__float128 same type?
+/*
+      if (LangOpts.ExtendedFP128Type &&
+          s + 3 < ThisTokEnd && s[1] == '1' && s[2] == '2' && s[3] == '8') {
+        s += 3; // success, eat up 3 characters.
+      }
+*/
 
       isFloat = true;
       continue;  // Success.
