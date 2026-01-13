@@ -507,6 +507,13 @@ LANGOPT(EnableLifetimeSafetyInference, 1, 0, NotCompatible, "Experimental lifeti
 
 LANGOPT(PreserveVec3Type, 1, 0, NotCompatible, "Preserve 3-component vector type")
 
+// Extended floating-point types
+LANGOPT(ExtendedFP16Type, 1, 0, NotCompatible, "_Float16 keyword (optional extended ISO/IEC/IEEE 60559 binary16 type)")
+LANGOPT(ExtendedFP32Type, 1, 0, NotCompatible, "_Float32 keyword (optional extended ISO/IEC/IEEE 60559 binary32 type)")
+LANGOPT(ExtendedFP64Type, 1, 0, NotCompatible, "_Float64 keyword (optional extended ISO/IEC/IEEE 60559 binary64 type)")
+LANGOPT(ExtendedFP128Type, 1, 0, NotCompatible, "_Float128 keyword (optional extended ISO/IEC/IEEE 60559 binary128 type)")
+LANGOPT(ExtendedBFloat16Type, 1, 0, NotCompatible, "_BFloat16 keyword (optional extended bfloat16 type)")
+
 #undef LANGOPT
 #undef ENUM_LANGOPT
 #undef VALUE_LANGOPT

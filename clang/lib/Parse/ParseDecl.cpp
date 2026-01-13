@@ -4356,7 +4356,7 @@ void Parser::ParseDeclarationSpecifiers(
       isInvalid = DS.SetTypeSpecSat(Loc, PrevSpec, DiagID);
       break;
     case tok::kw___float128:
-      isInvalid = DS.SetTypeSpecType(DeclSpec::TST_float128, Loc, PrevSpec,
+      isInvalid = DS.SetTypeSpecType(DeclSpec::TST__float128, Loc, PrevSpec,
                                      DiagID, Policy);
       break;
     case tok::kw___ibm128:

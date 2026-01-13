@@ -293,6 +293,9 @@ PUNCTUATOR(greatergreatergreater, ">>>")
 //   CHAR8SUPPORT - This is a keyword if 'char8_t' is a built-in type
 //   KEYFIXEDPOINT - This is a keyword according to the N1169 fixed point
 //                   extension.
+//   KEYEXTFLOAT - This is a keyword if extended floating-point types are
+//                 enabled according to the C23 Annex H or the C++23 extended
+//                 floating-point type.
 //   KEYDEFERTS - This is a keyword if the C '_Defer' TS is enabled
 //   KEYZOS - This is a keyword in C/C++ on z/OS
 //
@@ -436,7 +439,12 @@ CXX20_KEYWORD(requires              , 0)
 KEYWORD(char8_t                     , CHAR8SUPPORT)
 
 // C11 Extension
-KEYWORD(_Float16                    , KEYALL)
+KEYWORD(_Float16                    , KEYALL|KEYEXTFLOAT)
+
+// C23/C++23 extended floating point types
+KEYWORD(_Float32                    , KEYEXTFLOAT)
+KEYWORD(_Float64                    , KEYEXTFLOAT)
+KEYWORD(_Float128                   , KEYEXTFLOAT)
 
 // C23 keywords
 C23_KEYWORD(typeof                  , KEYGNU)
