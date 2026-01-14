@@ -351,7 +351,7 @@ static QualType getNeonEltType(NeonTypeFlags Flags, ASTContext &Context,
   case NeonTypeFlags::Float64:
     return Context.DoubleTy;
   case NeonTypeFlags::BFloat16:
-    return Context.BFloat16Ty;
+    return Context.BF16Ty;
   case NeonTypeFlags::MFloat8:
     return Context.MFloat8Ty;
   }

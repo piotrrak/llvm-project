@@ -1121,7 +1121,7 @@ enum PredefinedTypeIDs {
   PREDEF_TYPE_INCOMPLETE_MATRIX_IDX = 72,
 
   /// \brief The '__bf16' type
-  PREDEF_TYPE_BFLOAT16_ID = 73,
+  PREDEF_TYPE_BF16_ID = 73,
 
   /// \brief The '__ibm128' type
   PREDEF_TYPE_IBM128_ID = 74,

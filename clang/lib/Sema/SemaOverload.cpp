@@ -2047,9 +2047,9 @@ static bool IsFloatingPointConversion(Sema &S, QualType FromType,
   // We of course allow this conversion if long double is really double.
 
   // Conversions between bfloat16 and float16 are currently not supported.
-  if ((FromType->isBFloat16Type() &&
+  if ((FromType->isBF16Type() &&
        (ToType->isFloat16Type() || ToType->isHalfType())) ||
-      (ToType->isBFloat16Type() &&
+      (ToType->isBF16Type() &&
        (FromType->isFloat16Type() || FromType->isHalfType())))
     return false;
 

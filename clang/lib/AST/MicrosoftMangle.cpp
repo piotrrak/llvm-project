@@ -2809,7 +2809,7 @@ void MicrosoftCXXNameMangler::mangleType(const BuiltinType *T, Qualifiers,
       Out << "$halff@";
     break;
 
-  case BuiltinType::BFloat16:
+  case BuiltinType::BF16:
     mangleArtificialTagType(TagTypeKind::Struct, "__bf16", {"__clang"});
     break;
 

@@ -835,7 +835,7 @@ void USRGenerator::VisitType(QualType T) {
           Out << "@BT@SatUFract"; break;
         case BuiltinType::SatULongFract:
           Out << "@BT@SatULongFract"; break;
-        case BuiltinType::BFloat16:
+        case BuiltinType::BF16:
           Out << "@BT@__bf16"; break;
         case BuiltinType::Ibm128:
           Out << "@BT@__ibm128"; break;

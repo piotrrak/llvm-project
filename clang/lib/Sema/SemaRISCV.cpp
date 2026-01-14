@@ -142,7 +142,7 @@ static QualType RVVType2Qual(ASTContext &Context, const RVVType *Type) {
     QT = Context.getIntTypeForBitwidth(8, false);
     break;
   case ScalarTypeKind::BFloat:
-    QT = Context.BFloat16Ty;
+    QT = Context.BF16Ty;
     break;
   case ScalarTypeKind::Float:
     switch (Type->getElementBitwidth()) {
@@ -1550,7 +1550,7 @@ void SemaRISCV::checkRVVTypeSupport(QualType Ty, SourceLocation Loc, Decl *D,
       Diag(Loc, diag::err_riscv_type_requires_extension)
           << Ty << "zvfh or zvfhmin";
     }
-  else if (Info.ElementType->isBFloat16Type() &&
+  else if (Info.ElementType->isBF16Type() &&
            !FeatureMap.lookup("zvfbfmin") &&
            !FeatureMap.lookup("xandesvbfhcvt") &&
            !FeatureMap.lookup("experimental-zvfbfa"))

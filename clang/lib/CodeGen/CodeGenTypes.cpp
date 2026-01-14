@@ -488,7 +488,7 @@ llvm::Type *CodeGenTypes::ConvertType(QualType T) {
     case BuiltinType::LongDouble:
       LongDoubleReferenced = true;
       [[fallthrough]];
-    case BuiltinType::BFloat16:
+    case BuiltinType::BF16:
     case BuiltinType::Float:
     case BuiltinType::Double:
     case BuiltinType::Float128:

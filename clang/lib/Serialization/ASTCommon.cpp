@@ -283,8 +283,8 @@ serialization::TypeIdxFromBuiltin(const BuiltinType *BT) {
   case BuiltinType::OMPIterator:
     ID = PREDEF_TYPE_OMP_ITERATOR;
     break;
-  case BuiltinType::BFloat16:
-    ID = PREDEF_TYPE_BFLOAT16_ID;
+  case BuiltinType::BF16:
+    ID = PREDEF_TYPE_BF16_ID;
     break;
   }
 

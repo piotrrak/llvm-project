@@ -284,7 +284,7 @@ AArch64ABIInfo::convertFixedToScalableVectorType(const VectorType *VT) const {
       return llvm::ScalableVectorType::get(
           llvm::Type::getDoubleTy(getVMContext()), 2);
 
-    case BuiltinType::BFloat16:
+    case BuiltinType::BF16:
       return llvm::ScalableVectorType::get(
           llvm::Type::getBFloatTy(getVMContext()), 8);
     }

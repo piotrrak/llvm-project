@@ -4320,7 +4320,7 @@ void Parser::ParseDeclarationSpecifiers(
                                      DiagID, Policy);
       break;
     case tok::kw___bf16:
-      isInvalid = DS.SetTypeSpecType(DeclSpec::TST_BFloat16, Loc, PrevSpec,
+      isInvalid = DS.SetTypeSpecType(DeclSpec::TST_BF16, Loc, PrevSpec,
                                      DiagID, Policy);
       break;
     case tok::kw_float:

@@ -916,7 +916,7 @@ public:
     case BuiltinType::Kind::Float16:
       return FloatTy;
     case BuiltinType::Kind::Float:
-    case BuiltinType::Kind::BFloat16:
+    case BuiltinType::Kind::BF16:
       return DoubleTy;
     case BuiltinType::Kind::Double:
       return LongDoubleTy;
@@ -1294,7 +1294,7 @@ public:
   CanQualType SatUnsignedShortFractTy, SatUnsignedFractTy,
       SatUnsignedLongFractTy;
   CanQualType HalfTy; // [OpenCL 6.1.1.1], ARM NEON
-  CanQualType BFloat16Ty;
+  CanQualType BF16Ty;
   CanQualType Float16Ty; // C11 extension ISO/IEC TS 18661-3
   CanQualType VoidPtrTy, NullPtrTy;
   CanQualType DependentTy, OverloadTy, BoundMemberTy, UnresolvedTemplateTy,

@@ -2582,7 +2582,7 @@ public:
   bool isFloat16Type() const;      // C11 extension ISO/IEC TS 18661
   bool isFloat32Type() const;
   bool isDoubleType() const;
-  bool isBFloat16Type() const;
+  bool isBF16Type() const;         // '__bf16'
   bool isMFloat8Type() const;
   bool isFloat128Type() const;
   bool isIbm128Type() const;
@@ -8909,8 +8909,8 @@ inline bool Type::isDoubleType() const {
   return isSpecificBuiltinType(BuiltinType::Double);
 }
 
-inline bool Type::isBFloat16Type() const {
-  return isSpecificBuiltinType(BuiltinType::BFloat16);
+inline bool Type::isBF16Type() const {
+  return isSpecificBuiltinType(BuiltinType::BF16);
 }
 
 inline bool Type::isMFloat8Type() const {

@@ -1419,7 +1419,7 @@ void ASTContext::InitBuiltinTypes(const TargetInfo &Target,
   // half type (OpenCL 6.1.1.1) / ARM NEON __fp16
   InitBuiltinType(HalfTy, BuiltinType::Half);
 
-  InitBuiltinType(BFloat16Ty, BuiltinType::BFloat16);
+  InitBuiltinType(BF16Ty, BuiltinType::BF16);
 
   // Builtin type used to help define __builtin_va_list.
   VaListTagDecl = nullptr;
@@ -1716,7 +1716,7 @@ const llvm::fltSemantics &ASTContext::getFloatTypeSemantics(QualType T) const {
   switch (T->castAs<BuiltinType>()->getKind()) {
   default:
     llvm_unreachable("Not a floating point type!");
-  case BuiltinType::BFloat16:
+  case BuiltinType::BF16:
     return Target->getBFloat16Format();
   case BuiltinType::Float16:
     return Target->getHalfFormat();
@@ -2174,7 +2174,7 @@ TypeInfo ASTContext::getTypeInfoImpl(const Type *T) const {
       Width = Target->getLongFractWidth();
       Align = Target->getLongFractAlign();
       break;
-    case BuiltinType::BFloat16:
+    case BuiltinType::BF16:
       if (Target->hasBFloat16Type()) {
         Width = Target->getBFloat16Width();
         Align = Target->getBFloat16Align();
@@ -3432,7 +3432,7 @@ static void encodeTypeForFunctionPointerAuth(const ASTContext &Ctx,
     case BuiltinType::OCLClkEvent:
     case BuiltinType::OCLQueue:
     case BuiltinType::OCLReserveID:
-    case BuiltinType::BFloat16:
+    case BuiltinType::BF16:
     case BuiltinType::VectorQuad:
     case BuiltinType::VectorPair:
     case BuiltinType::DMR1024:
@@ -4455,7 +4455,7 @@ ASTContext::getBuiltinVectorTypeInfo(const BuiltinType *Ty) const {
 #define SVE_VECTOR_TYPE_BFLOAT(Name, MangledName, Id, SingletonId, NumEls,     \
                                ElBits, NF)                                     \
   case BuiltinType::Id:                                                        \
-    return {BFloat16Ty, llvm::ElementCount::getScalable(NumEls), NF};
+    return {BF16Ty, llvm::ElementCount::getScalable(NumEls), NF};
 #define SVE_VECTOR_TYPE_MFLOAT(Name, MangledName, Id, SingletonId, NumEls,     \
                                ElBits, NF)                                     \
   case BuiltinType::Id:                                                        \
@@ -4476,7 +4476,7 @@ ASTContext::getBuiltinVectorTypeInfo(const BuiltinType *Ty) const {
             llvm::ElementCount::getScalable(NumEls), NF};
 #define RVV_VECTOR_TYPE_BFLOAT(Name, Id, SingletonId, NumEls, ElBits, NF)      \
   case BuiltinType::Id:                                                        \
-    return {BFloat16Ty, llvm::ElementCount::getScalable(NumEls), NF};
+    return {BF16Ty, llvm::ElementCount::getScalable(NumEls), NF};
 #define RVV_PREDICATE_TYPE(Name, Id, SingletonId, NumEls)                      \
   case BuiltinType::Id:                                                        \
     return {BoolTy, llvm::ElementCount::getScalable(NumEls), 1};
@@ -4518,13 +4518,13 @@ QualType ASTContext::getScalableVectorType(QualType EltTy, unsigned NumElts,
   }
 #define SVE_VECTOR_TYPE_FLOAT(Name, MangledName, Id, SingletonId, NumEls,      \
                               ElBits, NF)                                      \
-  if (EltTy->hasFloatingRepresentation() && !EltTy->isBFloat16Type() &&        \
+  if (EltTy->hasFloatingRepresentation() && !EltTy->isBF16Type() &&            \
       EltTySize == ElBits && NumElts == (NumEls * NF) && NumFields == 1) {     \
     return ScalableVecTyMap[K] = SingletonId;                                  \
   }
 #define SVE_VECTOR_TYPE_BFLOAT(Name, MangledName, Id, SingletonId, NumEls,     \
                                ElBits, NF)                                     \
-  if (EltTy->hasFloatingRepresentation() && EltTy->isBFloat16Type() &&         \
+  if (EltTy->hasFloatingRepresentation() && EltTy->isBF16Type() &&             \
       EltTySize == ElBits && NumElts == (NumEls * NF) && NumFields == 1) {     \
     return ScalableVecTyMap[K] = SingletonId;                                  \
   }
@@ -4545,9 +4545,9 @@ QualType ASTContext::getScalableVectorType(QualType EltTy, unsigned NumElts,
   if (!EltTy->isBooleanType() &&                                               \
       ((EltTy->hasIntegerRepresentation() &&                                   \
         EltTy->hasSignedIntegerRepresentation() == IsSigned) ||                \
-       (EltTy->hasFloatingRepresentation() && !EltTy->isBFloat16Type() &&      \
+       (EltTy->hasFloatingRepresentation() && !EltTy->isBF16Type() &&          \
         IsFP && !IsBF) ||                                                      \
-       (EltTy->hasFloatingRepresentation() && EltTy->isBFloat16Type() &&       \
+       (EltTy->hasFloatingRepresentation() && EltTy->isBF16Type() &&           \
         IsBF && !IsFP)) &&                                                     \
       EltTySize == ElBits && NumElts == NumEls && NumFields == NF)             \
     return ScalableVecTyMap[K] = SingletonId;
@@ -8062,7 +8062,7 @@ static FloatingRank getFloatingRank(QualType T) {
   case BuiltinType::Double:     return DoubleRank;
   case BuiltinType::LongDouble: return LongDoubleRank;
   case BuiltinType::Float128:   return Float128Rank;
-  case BuiltinType::BFloat16:   return BFloat16Rank;
+  case BuiltinType::BF16:       return BFloat16Rank;
   case BuiltinType::Ibm128:     return Ibm128Rank;
   }
 }
@@ -9064,7 +9064,7 @@ static char getObjCEncodingForPrimitiveType(const ASTContext *C,
     case BuiltinType::LongDouble: return 'D';
     case BuiltinType::NullPtr:    return '*'; // like char*
 
-    case BuiltinType::BFloat16:
+    case BuiltinType::BF16:
     case BuiltinType::Float16:
     case BuiltinType::Float128:
     case BuiltinType::Ibm128:
@@ -12427,7 +12427,7 @@ static QualType DecodeTypeFromStr(const char *&Str, const ASTContext &Context,
   case 'y':
     assert(HowLong == 0 && !Signed && !Unsigned &&
            "Bad modifiers used with 'y'!");
-    Type = Context.BFloat16Ty;
+    Type = Context.BF16Ty;
     break;
   case 'v':
     assert(HowLong == 0 && !Signed && !Unsigned &&

@@ -1628,7 +1628,7 @@ bool QualType::UseExcessPrecision(const ASTContext &Ctx) {
         return true;
       break;
     }
-    case BuiltinType::Kind::BFloat16: {
+    case BuiltinType::Kind::BF16: {
       const TargetInfo &TI = Ctx.getTargetInfo();
       if (TI.hasBFloat16Type() && !TI.hasFullBFloat16Type() &&
           Ctx.getLangOpts().getBFloat16ExcessPrecision() !=
@@ -3396,7 +3396,7 @@ StringRef BuiltinType::getName(const PrintingPolicy &Policy) const {
     return "unsigned __int128";
   case Half:
     return Policy.Half ? "half" : "__fp16";
-  case BFloat16:
+  case BF16:
     return "__bf16";
   case Float:
     return "float";

@@ -344,7 +344,7 @@ bool Declarator::isDeclarationOfFunction() const {
     case TST_unspecified:
     case TST_void:
     case TST_wchar:
-    case TST_BFloat16:
+    case TST_BF16:
     case TST_typename_pack_indexing:
 #define GENERIC_IMAGE_TYPE(ImgType, Id) case TST_##ImgType##_t:
 #include "clang/Basic/OpenCLImageTypes.def"
@@ -576,7 +576,7 @@ const char *DeclSpec::getSpecifierName(DeclSpec::TST T,
 #include "clang/Basic/TransformTypeTraits.def"
   case DeclSpec::TST_unknown_anytype: return "__unknown_anytype";
   case DeclSpec::TST_atomic: return "_Atomic";
-  case DeclSpec::TST_BFloat16: return "__bf16";
+  case DeclSpec::TST_BF16: return "__bf16";
 #define GENERIC_IMAGE_TYPE(ImgType, Id) \
   case DeclSpec::TST_##ImgType##_t: \
     return #ImgType "_t";

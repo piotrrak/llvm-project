@@ -586,7 +586,7 @@ ABIArgInfo ARMABIInfo::classifyReturnType(QualType RetTy, bool isVariadic,
         (VT->getElementType()->isFloat16Type() ||
          VT->getElementType()->isHalfType())) ||
         (IsFloatABISoftFP &&
-         VT->getElementType()->isBFloat16Type()))
+         VT->getElementType()->isBF16Type()))
       return coerceIllegalVector(RetTy);
   }
 
@@ -684,7 +684,7 @@ bool ARMABIInfo::isIllegalVectorType(QualType Ty) const {
         (VT->getElementType()->isFloat16Type() ||
          VT->getElementType()->isHalfType())) ||
         (IsFloatABISoftFP &&
-         VT->getElementType()->isBFloat16Type()))
+         VT->getElementType()->isBF16Type()))
       return true;
     if (isAndroid()) {
       // Android shipped using Clang 3.1, which supported a slightly different
@@ -735,7 +735,7 @@ bool ARMABIInfo::containsAnyFP16Vectors(QualType Ty) const {
   } else {
     if (const VectorType *VT = Ty->getAs<VectorType>())
       return (VT->getElementType()->isFloat16Type() ||
-              VT->getElementType()->isBFloat16Type() ||
+              VT->getElementType()->isBF16Type() ||
               VT->getElementType()->isHalfType());
     return false;
   }
