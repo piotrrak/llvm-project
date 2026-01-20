@@ -2578,6 +2578,8 @@ public:
   bool isComplexType() const;      // C99 6.2.5p11 (complex)
   bool isAnyComplexType() const;   // C99 6.2.5p11 (complex) + Complex Int.
   bool isFloatingType() const;     // C99 6.2.5p11 (real floating + complex)
+  /// C++23 6.8.2p12 [basic.fundamental] (standard floating-point types)
+  bool isCXX23StandardFloatingType(const ASTContext &) const;
   bool isHalfType() const;         // OpenCL 6.1.1.1, NEON (IEEE 754-2008 half)
   bool isFloat16Type() const;      // C11 extension ISO/IEC TS 18661
   bool isFloat32Type() const;

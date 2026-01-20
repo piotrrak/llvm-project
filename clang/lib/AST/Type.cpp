@@ -2310,6 +2310,24 @@ bool Type::isFloatingType() const {
   return false;
 }
 
+bool Type::isCXX23StandardFloatingType(const ASTContext &Ctx) const {
+  if (!Ctx.getLangOpts().CPlusPlus23)
+    return false;
+  if (const auto *BT = dyn_cast<BuiltinType>(CanonicalType)) {
+    return BT->getKind() == BuiltinType::Float || BT->getKind() == BuiltinType::Double ||
+      BT->getKind() == BuiltinType::LongDouble;
+  }
+  // FIXME: https://reviews.llvm.org/D149573 returns true for ComplexType with elty
+  // I don't see the reason for that yet.
+
+  /*
+  if (const auto *CT = dyn_cast<ComplexType>(CanonicalType)) {
+    return CT->getElementType()->isCXX23StandardFloatingType(Ctx);
+  }
+  */
+  return false;
+}
+
 bool Type::hasFloatingRepresentation() const {
   if (const auto *VT = dyn_cast<VectorType>(CanonicalType))
     return VT->getElementType()->isFloatingType();

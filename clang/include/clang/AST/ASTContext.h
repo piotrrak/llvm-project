@@ -87,6 +87,15 @@ template <> struct DenseMapInfo<ScalableVecTyKey> {
 
 namespace clang {
 
+enum class FloatConvRankCompareResult {
+  Unordered,
+  Lesser,
+  Greater,
+  Equal,
+  Equal_Lesser_Subrank,
+  Equal_Greater_Subrank,
+};
+
 class APValue;
 class ASTMutationListener;
 class ASTRecordLayout;
