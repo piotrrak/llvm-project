@@ -299,6 +299,9 @@ PUNCTUATOR(greatergreatergreater, ">>>")
 //   KEYFIXEDPOINT - This is a keyword according to the N1169 fixed point
 //                   extension.
 //   KEYDEFERTS - This is a keyword if the C '_Defer' TS is enabled
+//   KEYEXTFLOAT - This is a keyword if extended floating-point types are
+//                 enabled according to the C23 Annex H or the C++23 extended
+//                 floating-point type.
 //   KEYZOS - This is a keyword in C/C++ on z/OS
 //
 KEYWORD(auto                        , KEYALL)
@@ -440,8 +443,11 @@ CXX20_KEYWORD(requires              , 0)
 // Not a CXX20_KEYWORD because it is disabled by -fno-char8_t.
 KEYWORD(char8_t                     , CHAR8SUPPORT)
 
-// C11 Extension
-KEYWORD(_Float16                    , KEYALL)
+// C11 Extension and C23/C++23 extended floating point types
+KEYWORD(_Float16                    , KEYALL | KEYEXTFLOAT)
+KEYWORD(_Float32                    , KEYEXTFLOAT|KEYC23)
+KEYWORD(_Float64                    , KEYEXTFLOAT|KEYC23)
+KEYWORD(_Float128                   , KEYEXTFLOAT|KEYC23)
 
 // C23 keywords
 C23_KEYWORD(typeof                  , KEYGNU)

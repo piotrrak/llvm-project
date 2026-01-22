@@ -166,6 +166,12 @@ static KeywordStatus getKeywordStatusHelper(const LangOptions &LangOpts,
     return LangOpts.FixedPoint ? KS_Enabled : KS_Disabled;
   case KEYDEFERTS:
     return LangOpts.DeferTS ? KS_Enabled : KS_Disabled;
+  case KEYEXTFLOAT:
+    // FIXME: disabled for CUDA since test/Sema/float128.cu test claims aliases
+    // __float128 as _Float128
+    if (LangOpts.CUDA) return KS_Unknown;
+    if (LangOpts.C23) return KS_Enabled;
+    return KS_Extension;
   default:
     llvm_unreachable("Unknown KeywordStatus flag");
   }
