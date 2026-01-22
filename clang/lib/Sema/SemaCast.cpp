@@ -1335,7 +1335,12 @@ void CastOperation::CheckStaticCast() {
     return;
   }
 
-  if (ValueKind == VK_PRValue && !DestType->isRecordType() &&
+  if (Self.getASTContext().getLangOpts().CPlusPlus23 &&
+    ValueKind == VK_PRValue &&
+    SrcExpr.get()->getType()->isFloatingType() &&
+    DestType->isFloatingType()) {
+    Kind = CK_FloatingCast;
+  } else if (ValueKind == VK_PRValue && !DestType->isRecordType() &&
       !isPlaceholder(BuiltinType::Overload)) {
     SrcExpr = Self.DefaultFunctionArrayLvalueConversion(SrcExpr.get());
     if (SrcExpr.isInvalid()) // if conversion failed, don't report another error
@@ -1493,6 +1498,11 @@ static TryCastResult TryStaticCast(Sema &Self, ExprResult &SrcExpr,
       Kind = CK_FloatingToIntegral;
       return TC_Success;
     }
+  }
+
+  if (Self.Context.getLangOpts().CPlusPlus23 && SrcType->isFloatingType() &&
+    DestType->isFloatingType()) {
+    return TC_Success;
   }
 
   // Reverse pointer upcast. C++ 4.10p3 specifies pointer upcast.
