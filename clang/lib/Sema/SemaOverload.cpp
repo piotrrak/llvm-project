@@ -9353,7 +9353,7 @@ class BuiltinOperatorOverloadBuilder {
     ArithmeticTypes.push_back(S.Context.DoubleTy);
     ArithmeticTypes.push_back(S.Context.LongDoubleTy);
     if (S.Context.getTargetInfo().hasFloat128Type())
-      ArithmeticTypes.push_back(S.Context.Float128Ty);
+      ArithmeticTypes.push_back(S.Context.ExtQuadFloatTy);
     if (S.Context.getTargetInfo().hasIbm128Type())
       ArithmeticTypes.push_back(S.Context.Ibm128Ty);
 

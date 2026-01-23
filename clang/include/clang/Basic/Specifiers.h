@@ -70,8 +70,8 @@ namespace clang {
     TST_BFloat16,
     TST_float,
     TST_double,
-    TST_float128,
-    TST_ibm128,
+    TST__float128, // __float128
+    TST__ibm128, // __ibm128
     TST_bool,       // _Bool
     TST_decimal32,  // _Decimal32
     TST_decimal64,  // _Decimal64

@@ -328,8 +328,8 @@ bool Declarator::isDeclarationOfFunction() const {
     case TST_Accum:
     case TST_Fract:
     case TST_Float16:
-    case TST_float128:
-    case TST_ibm128:
+    case TST__float128:
+    case TST__ibm128:
     case TST_enum:
     case TST_error:
     case TST_float:
@@ -548,8 +548,8 @@ const char *DeclSpec::getSpecifierName(DeclSpec::TST T,
   case DeclSpec::TST_accum:       return "_Accum";
   case DeclSpec::TST_fract:       return "_Fract";
   case DeclSpec::TST_float16:     return "_Float16";
-  case DeclSpec::TST_float128:    return "__float128";
-  case DeclSpec::TST_ibm128:      return "__ibm128";
+  case DeclSpec::TST__float128:    return "__float128";
+  case DeclSpec::TST__ibm128:      return "__ibm128";
   case DeclSpec::TST_bool:        return Policy.Bool ? "bool" : "_Bool";
   case DeclSpec::TST_decimal32:   return "_Decimal32";
   case DeclSpec::TST_decimal64:   return "_Decimal64";
@@ -1324,8 +1324,8 @@ void DeclSpec::Finish(Sema &S, const PrintingPolicy &Policy) {
       if (!S.getLangOpts().CPlusPlus)
         S.Diag(TSTLoc, diag::ext_integer_complex);
     } else if (TypeSpecType != TST_float && TypeSpecType != TST_double &&
-               TypeSpecType != TST_float128 && TypeSpecType != TST_float16 &&
-               TypeSpecType != TST_ibm128) {
+               TypeSpecType != TST__float128 && TypeSpecType != TST_float16 &&
+               TypeSpecType != TST__ibm128) {
       // FIXME: __fp16?
       S.Diag(TSCLoc, diag::err_invalid_complex_spec)
         << getSpecifierName((TST)TypeSpecType, Policy);

@@ -274,7 +274,7 @@ bool SemaPPC::CheckPPCBuiltinFunctionCall(const TargetInfo &TI,
     QualType ArgType = TheCall->getArg(0)->getType();
     if (ArgType != QualType(Context.FloatTy) &&
         ArgType != QualType(Context.DoubleTy) &&
-        ArgType != QualType(Context.Float128Ty))
+        ArgType != QualType(Context.ExtQuadFloatTy))
       return Diag(TheCall->getBeginLoc(),
                   diag::err_ppc_invalid_test_data_class_type);
     return SemaRef.BuiltinConstantArgRange(TheCall, 1, 0, 127);

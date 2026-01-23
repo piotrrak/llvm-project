@@ -216,7 +216,7 @@ FLOATING_TYPE(Float16, HalfTy)
 FLOATING_TYPE(BFloat16, BFloat16Ty)
 
 // '__float128'
-FLOATING_TYPE(Float128, Float128Ty)
+FLOATING_TYPE(Float128, ExtQuadFloatTy)
 
 // '__ibm128'
 FLOATING_TYPE(Ibm128, Ibm128Ty)

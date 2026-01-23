@@ -1226,7 +1226,7 @@ void ASTContext::InitBuiltinTypes(const TargetInfo &Target,
   InitBuiltinType(LongDoubleTy,        BuiltinType::LongDouble);
 
   // GNU extension, __float128 for IEEE quadruple precision
-  InitBuiltinType(Float128Ty,          BuiltinType::Float128);
+  InitBuiltinType(ExtQuadFloatTy,          BuiltinType::Float128);
 
   // __ibm128 for IBM extended precision
   InitBuiltinType(Ibm128Ty, BuiltinType::Ibm128);
@@ -12450,7 +12450,7 @@ static QualType DecodeTypeFromStr(const char *&Str, const ASTContext &Context,
     if (HowLong == 1)
       Type = Context.LongDoubleTy;
     else if (HowLong == 2)
-      Type = Context.Float128Ty;
+      Type = Context.ExtQuadFloatTy;
     else
       Type = Context.DoubleTy;
     break;
@@ -13272,7 +13272,7 @@ QualType ASTContext::getRealTypeForBitwidth(unsigned DestWidth,
   case FloatModeKind::LongDouble:
     return LongDoubleTy;
   case FloatModeKind::Float128:
-    return Float128Ty;
+    return ExtQuadFloatTy;
   case FloatModeKind::Ibm128:
     return Ibm128Ty;
   case FloatModeKind::NoFloat:

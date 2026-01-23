@@ -4660,7 +4660,7 @@ void ItaniumCXXABI::EmitFundamentalRTTIDescriptors(const CXXRecordDecl *RD) {
       getContext().UnsignedLongLongTy, getContext().Int128Ty,
       getContext().UnsignedInt128Ty,   getContext().HalfTy,
       getContext().FloatTy,            getContext().DoubleTy,
-      getContext().LongDoubleTy,       getContext().Float128Ty,
+      getContext().LongDoubleTy,       getContext().ExtQuadFloatTy,
       getContext().Char8Ty,            getContext().Char16Ty,
       getContext().Char32Ty
   };

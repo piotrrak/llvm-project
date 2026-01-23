@@ -1166,14 +1166,14 @@ static QualType ConvertDeclSpecToType(TypeProcessingState &state) {
         S.Diag(DS.getTypeSpecTypeLoc(), diag::ext_opencl_double_without_pragma);
     }
     break;
-  case DeclSpec::TST_float128:
+  case DeclSpec::TST__float128:
     if (!S.Context.getTargetInfo().hasFloat128Type() &&
         !S.getLangOpts().isTargetDevice())
       S.Diag(DS.getTypeSpecTypeLoc(), diag::err_type_unsupported)
         << "__float128";
-    Result = Context.Float128Ty;
+    Result = Context.ExtQuadFloatTy;
     break;
-  case DeclSpec::TST_ibm128:
+  case DeclSpec::TST__ibm128:
     if (!S.Context.getTargetInfo().hasIbm128Type() &&
         !S.getLangOpts().SYCLIsDevice &&
         !(S.getLangOpts().OpenMP && S.getLangOpts().OpenMPIsTargetDevice))
