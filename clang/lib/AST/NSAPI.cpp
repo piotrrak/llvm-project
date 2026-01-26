@@ -426,7 +426,7 @@ NSAPI::getNSNumberFactoryMethodKind(QualType T) const {
   case BuiltinType::SatULongFract:
   case BuiltinType::UInt128:
   case BuiltinType::Float16:
-  case BuiltinType::Float128:
+  case BuiltinType::ExtQuadFloat:
   case BuiltinType::Ibm128:
   case BuiltinType::NullPtr:
   case BuiltinType::ObjCClass:

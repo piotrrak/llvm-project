@@ -917,7 +917,7 @@ NumericLiteralParser::NumericLiteralParser(StringRef TokSpelling,
   isFloat = false;
   isImaginary = false;
   isFloat16 = false;
-  isFloat128 = false;
+  isExtQuadFloat = false;
   MicrosoftInteger = 0;
   isFract = false;
   isAccum = false;
@@ -1049,7 +1049,7 @@ NumericLiteralParser::NumericLiteralParser(StringRef TokSpelling,
       if (HasSize)
         break;
       HasSize = true;
-      isFloat128 = true;
+      isExtQuadFloat = true;
       continue;  // Success.
     case 'u':
     case 'U':

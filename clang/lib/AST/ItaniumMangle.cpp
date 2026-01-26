@@ -3341,7 +3341,7 @@ void CXXNameMangler::mangleType(const BuiltinType *T) {
     Out << TI->getLongDoubleMangling();
     break;
   }
-  case BuiltinType::Float128: {
+  case BuiltinType::ExtQuadFloat: {
     const TargetInfo *TI =
         getASTContext().getLangOpts().OpenMP &&
                 getASTContext().getLangOpts().OpenMPIsTargetDevice

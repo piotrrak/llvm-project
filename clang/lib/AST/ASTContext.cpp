@@ -1226,7 +1226,7 @@ void ASTContext::InitBuiltinTypes(const TargetInfo &Target,
   InitBuiltinType(LongDoubleTy,        BuiltinType::LongDouble);
 
   // GNU extension, __float128 for IEEE quadruple precision
-  InitBuiltinType(ExtQuadFloatTy,          BuiltinType::Float128);
+  InitBuiltinType(ExtQuadFloatTy,          BuiltinType::ExtQuadFloat);
 
   // __ibm128 for IBM extended precision
   InitBuiltinType(Ibm128Ty, BuiltinType::Ibm128);
@@ -1730,7 +1730,7 @@ const llvm::fltSemantics &ASTContext::getFloatTypeSemantics(QualType T) const {
     if (getLangOpts().OpenMP && getLangOpts().OpenMPIsTargetDevice)
       return AuxTarget->getLongDoubleFormat();
     return Target->getLongDoubleFormat();
-  case BuiltinType::Float128:
+  case BuiltinType::ExtQuadFloat:
     if (getLangOpts().OpenMP && getLangOpts().OpenMPIsTargetDevice)
       return AuxTarget->getFloat128Format();
     return Target->getFloat128Format();
@@ -2222,7 +2222,7 @@ TypeInfo ASTContext::getTypeInfoImpl(const Type *T) const {
         Align = Target->getLongDoubleAlign();
       }
       break;
-    case BuiltinType::Float128:
+    case BuiltinType::ExtQuadFloat:
       if (Target->hasFloat128Type() || !getLangOpts().OpenMP ||
           !getLangOpts().OpenMPIsTargetDevice) {
         Width = Target->getFloat128Width();
@@ -3411,7 +3411,7 @@ static void encodeTypeForFunctionPointerAuth(const ASTContext &Ctx,
     case BuiltinType::Float16:
       OS << "DF16_";
       return;
-    case BuiltinType::Float128:
+    case BuiltinType::ExtQuadFloat:
       OS << "g";
       return;
 
@@ -8056,14 +8056,14 @@ static FloatingRank getFloatingRank(QualType T) {
 
   switch (T->castAs<BuiltinType>()->getKind()) {
   default: llvm_unreachable("getFloatingRank(): not a floating type");
-  case BuiltinType::Float16:    return Float16Rank;
-  case BuiltinType::Half:       return HalfRank;
-  case BuiltinType::Float:      return FloatRank;
-  case BuiltinType::Double:     return DoubleRank;
-  case BuiltinType::LongDouble: return LongDoubleRank;
-  case BuiltinType::Float128:   return Float128Rank;
-  case BuiltinType::BFloat16:   return BFloat16Rank;
-  case BuiltinType::Ibm128:     return Ibm128Rank;
+  case BuiltinType::Float16:        return Float16Rank;
+  case BuiltinType::Half:           return HalfRank;
+  case BuiltinType::Float:          return FloatRank;
+  case BuiltinType::Double:         return DoubleRank;
+  case BuiltinType::LongDouble:     return LongDoubleRank;
+  case BuiltinType::ExtQuadFloat:   return Float128Rank;
+  case BuiltinType::BFloat16:       return BFloat16Rank;
+  case BuiltinType::Ibm128:         return Ibm128Rank;
   }
 }
 
@@ -9066,7 +9066,7 @@ static char getObjCEncodingForPrimitiveType(const ASTContext *C,
 
     case BuiltinType::BFloat16:
     case BuiltinType::Float16:
-    case BuiltinType::Float128:
+    case BuiltinType::ExtQuadFloat:
     case BuiltinType::Ibm128:
     case BuiltinType::Half:
     case BuiltinType::ShortAccum:

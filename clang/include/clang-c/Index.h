@@ -2923,7 +2923,8 @@ enum CXTypeKind {
   CXType_ObjCId = 27,
   CXType_ObjCClass = 28,
   CXType_ObjCSel = 29,
-  CXType_Float128 = 30,
+  CXType_Float128 CINDEX_DEPRECATED = 30, // __float128
+  CXType_ExtQuadFloat = 30,
   CXType_Half = 31,
   CXType_Float16 = 32,
   CXType_ShortAccum = 33,

@@ -1826,7 +1826,7 @@ void X86_64ABIInfo::classify(QualType Ty, uint64_t OffsetBase, Class &Lo,
     } else if (k == BuiltinType::Float || k == BuiltinType::Double ||
                k == BuiltinType::Float16 || k == BuiltinType::BFloat16) {
       Current = SSE;
-    } else if (k == BuiltinType::Float128) {
+    } else if (k == BuiltinType::ExtQuadFloat) {
       Lo = SSE;
       Hi = SSEUp;
     } else if (k == BuiltinType::LongDouble) {
@@ -3402,7 +3402,7 @@ ABIArgInfo WinX86_64ABIInfo::classify(QualType Ty, unsigned &FreeSSERegs,
 
     case BuiltinType::Int128:
     case BuiltinType::UInt128:
-    case BuiltinType::Float128:
+    case BuiltinType::ExtQuadFloat:
       // 128-bit float and integer types share the same ABI.
 
       // If it's a parameter type, the normal ABI rule is that arguments larger

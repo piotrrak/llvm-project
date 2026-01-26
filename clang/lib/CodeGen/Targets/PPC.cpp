@@ -796,7 +796,7 @@ bool PPC64_SVR4_ABIInfo::isHomogeneousAggregateBaseType(QualType Ty) const {
         BT->getKind() == BuiltinType::LongDouble ||
         BT->getKind() == BuiltinType::Ibm128 ||
         (getContext().getTargetInfo().hasFloat128Type() &&
-         (BT->getKind() == BuiltinType::Float128))) {
+         (BT->getKind() == BuiltinType::ExtQuadFloat))) {
       if (IsSoftFloatABI)
         return false;
       return true;
@@ -815,7 +815,7 @@ bool PPC64_SVR4_ABIInfo::isHomogeneousAggregateSmallEnough(
   // require one or two registers depending on their size.
   uint32_t NumRegs =
       ((getContext().getTargetInfo().hasFloat128Type() &&
-          Base->isFloat128Type()) ||
+          Base->isExtQuadFloatType()) ||
         Base->isVectorType()) ? 1
                               : (getContext().getTypeSize(Base) + 63) / 64;
 

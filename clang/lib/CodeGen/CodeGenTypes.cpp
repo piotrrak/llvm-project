@@ -491,7 +491,7 @@ llvm::Type *CodeGenTypes::ConvertType(QualType T) {
     case BuiltinType::BFloat16:
     case BuiltinType::Float:
     case BuiltinType::Double:
-    case BuiltinType::Float128:
+    case BuiltinType::ExtQuadFloat:
     case BuiltinType::Ibm128:
       ResultType = getTypeForFormat(getLLVMContext(),
                                     Context.getFloatTypeSemantics(T),

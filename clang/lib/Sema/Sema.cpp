@@ -2188,7 +2188,7 @@ void Sema::checkTypeSupport(QualType Ty, SourceLocation Loc, ValueDecl *D) {
     }
 
     if ((Ty->isFloat16Type() && !Context.getTargetInfo().hasFloat16Type()) ||
-        (Ty->isFloat128Type() && !Context.getTargetInfo().hasFloat128Type()) ||
+        (Ty->isExtQuadFloatType() && !Context.getTargetInfo().hasFloat128Type()) ||
         (Ty->isIbm128Type() && !Context.getTargetInfo().hasIbm128Type()) ||
         (Ty->isIntegerType() && Context.getTypeSize(Ty) == 128 &&
          !Context.getTargetInfo().hasInt128Type()) ||

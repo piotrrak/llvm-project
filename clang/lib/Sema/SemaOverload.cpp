@@ -2871,7 +2871,7 @@ bool Sema::IsFloatingPointPromotion(QualType FromType, QualType ToType) {
           (FromBuiltin->getKind() == BuiltinType::Float ||
            FromBuiltin->getKind() == BuiltinType::Double) &&
           (ToBuiltin->getKind() == BuiltinType::LongDouble ||
-           ToBuiltin->getKind() == BuiltinType::Float128 ||
+           ToBuiltin->getKind() == BuiltinType::ExtQuadFloat ||
            ToBuiltin->getKind() == BuiltinType::Ibm128))
         return true;
 

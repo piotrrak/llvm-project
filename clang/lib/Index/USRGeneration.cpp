@@ -740,7 +740,7 @@ void USRGenerator::VisitType(QualType T) {
           Out << 'd'; break;
         case BuiltinType::LongDouble:
           Out << 'D'; break;
-        case BuiltinType::Float128:
+        case BuiltinType::ExtQuadFloat:
           Out << 'Q'; break;
         case BuiltinType::NullPtr:
           Out << 'n'; break;

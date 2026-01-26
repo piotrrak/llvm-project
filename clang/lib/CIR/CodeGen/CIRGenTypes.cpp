@@ -424,7 +424,7 @@ mlir::Type CIRGenTypes::convertType(QualType type) {
       resultType =
           builder.getLongDoubleTy(astContext.getFloatTypeSemantics(type));
       break;
-    case BuiltinType::Float128:
+    case BuiltinType::ExtQuadFloat:
       resultType = cgm.fP128Ty;
       break;
     case BuiltinType::Ibm128:
