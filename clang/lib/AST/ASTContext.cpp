@@ -1226,10 +1226,10 @@ void ASTContext::InitBuiltinTypes(const TargetInfo &Target,
   InitBuiltinType(LongDoubleTy,        BuiltinType::LongDouble);
 
   // GNU extension, __float128 for IEEE quadruple precision
-  InitBuiltinType(ExtQuadFloatTy,          BuiltinType::ExtQuadFloat);
+  InitBuiltinType(ExtQuadFloatTy,      BuiltinType::ExtQuadFloat);
 
   // __ibm128 for IBM extended precision
-  InitBuiltinType(Ibm128Ty, BuiltinType::Ibm128);
+  InitBuiltinType(Ibm128Ty,            BuiltinType::Ibm128);
 
   // C11 extension ISO/IEC TS 18661-3
   InitBuiltinType(Float16Ty,           BuiltinType::Float16);
