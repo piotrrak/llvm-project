@@ -3430,6 +3430,9 @@ static void encodeTypeForFunctionPointerAuth(const ASTContext &Ctx,
     case BuiltinType::Float64:
       OS << "DF64_";
       return;
+    case BuiltinType::Float128:
+      OS << "DF128_";
+      return;
     case BuiltinType::ExtQuadFloat:
       OS << "g";
       return;
@@ -9085,6 +9088,9 @@ static char getObjCEncodingForPrimitiveType(const ASTContext *C,
 
     case BuiltinType::BFloat16:
     case BuiltinType::Float16:
+    case BuiltinType::Float32:
+    case BuiltinType::Float64:
+    case BuiltinType::Float128:
     case BuiltinType::ExtQuadFloat:
     case BuiltinType::Ibm128:
     case BuiltinType::Half:
