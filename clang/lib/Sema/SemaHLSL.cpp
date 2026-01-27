@@ -3005,7 +3005,7 @@ static bool CheckFloatRepresentation(Sema *S, SourceLocation Loc,
       PassedType->isVectorType()
           ? PassedType->castAs<clang::VectorType>()->getElementType()
           : PassedType;
-  if (!BaseType->isFloat32Type())
+  if (!BaseType->isSingleFloatType())
     return S->Diag(Loc, diag::err_builtin_invalid_arg_type)
            << ArgOrdinal << /* scalar or vector of */ 5 << /* no int */ 0
            << /* float */ 1 << PassedType;
