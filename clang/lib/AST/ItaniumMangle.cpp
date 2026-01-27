@@ -3251,6 +3251,15 @@ void CXXNameMangler::mangleType(const BuiltinType *T) {
   case BuiltinType::Float16:
     Out << "DF16_";
     break;
+  case BuiltinType::Float32:
+    Out << "DF32_";
+    break;
+  case BuiltinType::Float64:
+    Out << "DF64_";
+    break;
+  case BuiltinType::Float128:
+    Out << "DF128_";
+    break;
   case BuiltinType::ShortAccum:
     Out << "DAs";
     break;

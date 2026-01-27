@@ -1929,7 +1929,7 @@ protected:
     unsigned : NumTypeBits;
 
     /// The kind (BuiltinType::Kind) of builtin type this is.
-    static constexpr unsigned NumOfBuiltinTypeBits = 9;
+    static constexpr unsigned NumOfBuiltinTypeBits = 10;
     unsigned Kind : NumOfBuiltinTypeBits;
   };
 
@@ -2582,7 +2582,7 @@ public:
   bool isCXX23StandardFloatingType(const ASTContext &) const;
   bool isHalfType() const;         // OpenCL 6.1.1.1, NEON (IEEE 754-2008 half)
   bool isFloat16Type() const;      // C11 extension ISO/IEC TS 18661
-  bool isFloat32Type() const;
+  bool isSingleFloatType() const;
   bool isDoubleType() const;
   bool isBFloat16Type() const;
   bool isMFloat8Type() const;
@@ -8903,7 +8903,7 @@ inline bool Type::isFloat16Type() const {
   return isSpecificBuiltinType(BuiltinType::Float16);
 }
 
-inline bool Type::isFloat32Type() const {
+inline bool Type::isSingleFloatType() const {
   return isSpecificBuiltinType(BuiltinType::Float);
 }
 

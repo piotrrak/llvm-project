@@ -71,7 +71,7 @@ static bool CheckFloatOrHalfRepresentation(Sema *S, SourceLocation Loc,
           ? PassedType->castAs<clang::VectorType>()->getElementType()
           : PassedType;
   if (!BaseType->isHalfType() && !BaseType->isFloat16Type() &&
-      !BaseType->isFloat32Type())
+      !BaseType->isSingleFloatType())
     return S->Diag(Loc, diag::err_builtin_invalid_arg_type)
            << ArgOrdinal << /* scalar or vector of */ 5 << /* no int */ 0
            << /* half or float */ 2 << PassedType;
@@ -82,7 +82,7 @@ static bool CheckFloatOrHalfScalarRepresentation(Sema *S, SourceLocation Loc,
                                                  int ArgOrdinal,
                                                  clang::QualType PassedType) {
   if (!PassedType->isHalfType() && !PassedType->isFloat16Type() &&
-      !PassedType->isFloat32Type())
+      !PassedType->isSingleFloatType())
     return S->Diag(Loc, diag::err_builtin_invalid_arg_type)
            << ArgOrdinal << /* scalar */ 1 << /* no int */ 0
            << /* half or float */ 2 << PassedType;

@@ -742,6 +742,12 @@ void USRGenerator::VisitType(QualType T) {
           Out << 'D'; break;
         case BuiltinType::ExtQuadFloat:
           Out << 'Q'; break;
+        case BuiltinType::Float32:
+          Out << "@BT@_Float32"; break;
+        case BuiltinType::Float64:
+          Out << "@BT@_Float64"; break;
+        case BuiltinType::Float128:
+          Out << "@BT@_Float128"; break;
         case BuiltinType::NullPtr:
           Out << 'n'; break;
 #define IMAGE_TYPE(ImgType, Id, SingletonId, Access, Suffix) \

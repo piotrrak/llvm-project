@@ -1234,6 +1234,19 @@ void ASTContext::InitBuiltinTypes(const TargetInfo &Target,
   // C11 extension ISO/IEC TS 18661-3
   InitBuiltinType(Float16Ty,           BuiltinType::Float16);
 
+  InitBuiltinType(Float32Ty,           BuiltinType::Float32);
+  InitBuiltinType(Float64Ty,           BuiltinType::Float64);
+
+  if (LangOpts.C23)
+    // C23 it _Float128 is same as GNU extension '__float128' type.
+    // TODO: consider interaction with 'overloadable' attribute
+    // This attribute makes function use C++ mangling, which would expose such divergence
+    // between C/C++ behaviour, is it acceptable?
+    Float128Ty = ExtQuadFloatTy;
+  else if (LangOpts.CPlusPlus23)
+    // For C++23 __float128 and _Float128 are distinct types with a unique mangling.
+    InitBuiltinType(Float128Ty,        BuiltinType::Float128);
+
   // ISO/IEC JTC1 SC22 WG14 N1169 Extension
   InitBuiltinType(ShortAccumTy,            BuiltinType::ShortAccum);
   InitBuiltinType(AccumTy,                 BuiltinType::Accum);
@@ -3410,6 +3423,12 @@ static void encodeTypeForFunctionPointerAuth(const ASTContext &Ctx,
       return;
     case BuiltinType::Float16:
       OS << "DF16_";
+      return;
+    case BuiltinType::Float32:
+      OS << "DF32_";
+      return;
+    case BuiltinType::Float64:
+      OS << "DF64_";
       return;
     case BuiltinType::ExtQuadFloat:
       OS << "g";
