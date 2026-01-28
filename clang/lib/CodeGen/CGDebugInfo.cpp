@@ -1139,6 +1139,9 @@ llvm::DIType *CGDebugInfo::CreateType(const BuiltinType *BT) {
   case BuiltinType::LongDouble:
   case BuiltinType::Float16:
   case BuiltinType::BFloat16:
+  case BuiltinType::Float32:
+  case BuiltinType::Float64:
+  case BuiltinType::Float128:
   case BuiltinType::ExtQuadFloat:
   case BuiltinType::Double:
   case BuiltinType::Ibm128:

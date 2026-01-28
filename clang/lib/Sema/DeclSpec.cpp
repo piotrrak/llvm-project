@@ -328,6 +328,9 @@ bool Declarator::isDeclarationOfFunction() const {
     case TST_Accum:
     case TST_Fract:
     case TST_Float16:
+    case TST_Float32:
+    case TST_Float64:
+    case TST_Float128:
     case TST__float128:
     case TST__ibm128:
     case TST_enum:
@@ -548,6 +551,9 @@ const char *DeclSpec::getSpecifierName(DeclSpec::TST T,
   case DeclSpec::TST_accum:       return "_Accum";
   case DeclSpec::TST_fract:       return "_Fract";
   case DeclSpec::TST_float16:     return "_Float16";
+  case DeclSpec::TST_float32:     return "_Float32";
+  case DeclSpec::TST_float64:     return "_Float64";
+  case DeclSpec::TST_float128:     return "_Float128";
   case DeclSpec::TST__float128:    return "__float128";
   case DeclSpec::TST__ibm128:      return "__ibm128";
   case DeclSpec::TST_bool:        return Policy.Bool ? "bool" : "_Bool";

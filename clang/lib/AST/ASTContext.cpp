@@ -1735,7 +1735,11 @@ const llvm::fltSemantics &ASTContext::getFloatTypeSemantics(QualType T) const {
     return Target->getHalfFormat();
   case BuiltinType::Half:
     return Target->getHalfFormat();
-  case BuiltinType::Float:      return Target->getFloatFormat();
+  // FIXME: For float, double, long double only relation long double >= double >= float is true
+  // Check/enhance TargetInfo to obtain proper floating point format for _Float32/_Float64/_Float128 types
+  case BuiltinType::Float: [[fallthrough]];
+  case BuiltinType::Float32:      return Target->getFloatFormat(); // FIXME: Float32 (that's not strictly correct)
+  case BuiltinType::Float64:     return Target->getDoubleFormat(); // FIXME: Float64 (that's not strictly correct)
   case BuiltinType::Double:     return Target->getDoubleFormat();
   case BuiltinType::Ibm128:
     return Target->getIbm128Format();
@@ -2213,10 +2217,12 @@ TypeInfo ASTContext::getTypeInfoImpl(const Type *T) const {
       }
       break;
     case BuiltinType::Float:
+    case BuiltinType::Float32:
       Width = Target->getFloatWidth();
       Align = Target->getFloatAlign();
       break;
     case BuiltinType::Double:
+    case BuiltinType::Float64:
       Width = Target->getDoubleWidth();
       Align = Target->getDoubleAlign();
       break;
@@ -2235,6 +2241,8 @@ TypeInfo ASTContext::getTypeInfoImpl(const Type *T) const {
         Align = Target->getLongDoubleAlign();
       }
       break;
+    // TODO:
+    //case BuiltinType::Float128: break;
     case BuiltinType::ExtQuadFloat:
       if (Target->hasFloat128Type() || !getLangOpts().OpenMP ||
           !getLangOpts().OpenMPIsTargetDevice) {

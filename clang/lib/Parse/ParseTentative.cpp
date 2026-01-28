@@ -1466,6 +1466,9 @@ Parser::isCXXDeclarationSpecifier(ImplicitTypenameContext AllowImplicitTypename,
   case tok::kw_double:
   case tok::kw___bf16:
   case tok::kw__Float16:
+  case tok::kw__Float32:
+  case tok::kw__Float64:
+  case tok::kw__Float128:
   case tok::kw___float128:
   case tok::kw___ibm128:
   case tok::kw_void:

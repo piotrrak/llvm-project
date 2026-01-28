@@ -1141,6 +1141,18 @@ static QualType ConvertDeclSpecToType(TypeProcessingState &state) {
         << "_Float16";
     Result = Context.Float16Ty;
     break;
+  case DeclSpec::TST_float32:
+    // TODO: diagnose whenever unsupported
+    Result = Context.Float32Ty;
+    break;
+  case DeclSpec::TST_float64:
+    // TODO: diagnose whenever unsupported
+    Result = Context.Float64Ty;
+    break;
+  case DeclSpec::TST_float128:
+    // TODO: diagnose whenever unsupported
+    Result = Context.Float128Ty;
+    break;
   case DeclSpec::TST_half:    Result = Context.HalfTy; break;
   case DeclSpec::TST_BFloat16:
     if (!S.Context.getTargetInfo().hasBFloat16Type() &&
